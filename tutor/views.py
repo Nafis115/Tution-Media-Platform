@@ -6,6 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.authentication import TokenAuthentication
 # registration and login modules
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
@@ -110,15 +111,10 @@ class TutorProfileUpdateAPIView(RetrieveUpdateAPIView):
 # tutor logout view
                
 class TutorLogoutApiView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        try:
-            request.user.auth_token.delete()
-        except (AttributeError, Token.DoesNotExist):
-            return Response({"detail": "Invalid token or token does not exist."}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+    def get(self, request):
+        request.user.auth_token.delete()
+        logout(request)
+        return redirect('login')
     
 
 
