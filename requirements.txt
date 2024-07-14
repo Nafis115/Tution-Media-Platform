@@ -3,6 +3,7 @@ crispy-bootstrap5
 distlib
 dj-database-url
 Django
+django-cors-headers
 django-crispy-forms
 django-email
 django-environ
@@ -23,7 +24,6 @@ PyGetWindow
 PyMsgBox
 pyperclip
 PyRect
-PyScreeze
 pytweening
 sqlparse
 typing_extensions
