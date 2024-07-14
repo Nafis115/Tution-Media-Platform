@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/application/',include("apply_for_tution.urls")),
     path('api/service/',include("service.urls")),
     path('api/',include("communicate.urls")),
+    path('api/contact',include("contact_us.urls")),
     
     
 ]
