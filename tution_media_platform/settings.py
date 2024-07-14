@@ -88,6 +88,11 @@ TEMPLATES = [
     },
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5501",  # Local development domain
+   
+]
+
 WSGI_APPLICATION = 'tution_media_platform.wsgi.application'
 
 
