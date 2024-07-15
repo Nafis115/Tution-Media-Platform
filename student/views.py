@@ -44,7 +44,7 @@ class StudentRegistrationApiView(APIView):
             token=default_token_generator.make_token(student)  #generate token of student
             uid=urlsafe_base64_encode(force_bytes(student.pk)) #more specified the confirmation link
             
-            confirm_link=f"http://127.0.0.1:8000/student/active/{uid}/{token}" #link send for confirm
+            confirm_link=f"https://tution-media-platform.onrender.com/api/student/active/{uid}/{token}" #link send for confirm
             email_subject="Confirm Registration"
             email_body=render_to_string('confirm_email.html',{'confirm_link':confirm_link})
             email=EmailMultiAlternatives(email_subject,'',to=[student.email])
