@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'apply_for_tution',
     'service',
     'tution',
-    'communicate',
-    'contact_us',
     #rest framework
     'rest_framework',
     'rest_framework.authtoken',
