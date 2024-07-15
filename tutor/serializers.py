@@ -4,11 +4,17 @@ from django.contrib.auth.password_validation import validate_password
 from .models import *
 
 
-class TutorSerializer(serializers.ModelSerializer):
-    
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model=TutorModel
-        fields='__all__'
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email']
+
+class TutorSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = TutorModel
+        fields = '__all__'
 
 class TutorRegistrationSerializer(serializers.ModelSerializer):
     confirm_password=serializers.CharField(required=True)
