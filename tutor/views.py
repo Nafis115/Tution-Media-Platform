@@ -124,18 +124,11 @@ class TutorLogoutApiView(APIView):
     
 
 class ChangePasswordApiView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
-    def put(self, request, *args, **kwargs):
-        user = self.get_object()
+    
+  def put(self, request, *args, **kwargs):
         serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
-
         if serializer.is_valid():
-            user.set_password(serializer.validated_data['new_password'])
-            user.save()
-            return Response({"detail": "Password updated successfully"}, status=status.HTTP_200_OK)
-
+            serializer.save()
+            return Response({"detail": "Password changed successfully."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+   
