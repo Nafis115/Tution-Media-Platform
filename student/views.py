@@ -104,9 +104,13 @@ class StudentLoginApiView(APIView):
                
 class StudentLogoutApiView(APIView):
     def get(self, request):
-        request.user.auth_token.delete()
-        logout(request)
-        return redirect('login')
+        if request.user.is_authenticated:
+            if hasattr(request.user, 'auth_token'):
+                request.user.auth_token.delete()
+            logout(request)
+            return redirect('login')
+        else:
+            return Response({'message': 'You are not logged in.'}, status=status.HTTP_401_UNAUTHORIZED)
     
 
 
