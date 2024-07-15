@@ -6,6 +6,9 @@ class TuitionSerializer(serializers.ModelSerializer):
         model = Tuition
         fields = '__all__'
 class ReviewSerializer(serializers.ModelSerializer):
+    reviewer_name = serializers.SerializerMethodField()
     class Meta:
         model = Review
         fields = '__all__'
+    def get_reviewer_name(self, obj):
+        return f"{obj.reviewer.user.first_name} {obj.reviewer.user.last_name}"

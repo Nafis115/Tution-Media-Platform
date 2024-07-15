@@ -27,13 +27,14 @@ class Tuition(models.Model):
 
 
 STAR_CHOICES = [
-    (1, '⭐'),
-    (2, '⭐⭐'),
-    (3, '⭐⭐⭐'),
-    (4, '⭐⭐⭐⭐'),
-    (5, '⭐⭐⭐⭐⭐'),
+    ( '⭐',        1 ),
+    ( '⭐⭐',      2 ),
+    ( '⭐⭐⭐' ,   3 ),
+    ( '⭐⭐⭐⭐' , 4  ),
+    ( '⭐⭐⭐⭐⭐',5  ),
 ]
 class Review(models.Model):
+    
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
