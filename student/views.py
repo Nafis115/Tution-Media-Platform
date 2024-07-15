@@ -75,21 +75,29 @@ def activate(request,uid64,token):
 # student login view   
             
 class StudentLoginApiView(APIView):
-    def post(self,request):
-        serializer=StudentLoginSerializer(data=self.request.data)
+    def post(self, request):
+        serializer = StudentLoginSerializer(data=self.request.data)
         
         if serializer.is_valid():
-            username=serializer.validated_data['username']
-            password=serializer.validated_data['password']
-            #check student exist on our database
-            student=authenticate(username=username,password=password)
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+           
+            student = authenticate(username=username, password=password)
             
             if student:
-                token,_=Token.objects.get_or_create(user=student)
-                login(request,student) #login student
-                return Response({'Token':token.key,'student_id':student.id})
+                try:
+                  
+                    student_data = StudentModel.objects.get(user=student)
+                    student_id = student_data.id
+                    
+                    token, _ = Token.objects.get_or_create(user=student)
+                    login(request, student) 
+                    
+                    return Response({'Token': token.key, 'student_id': student_id})
+                except StudentModel.DoesNotExist:
+                    return Response({'error': "Student data not found"})
             else:
-                return Response({'error':"invalid credential"})
+                return Response({'error': "Invalid credentials"})
         return Response(serializer.errors)
         
 # student logout view

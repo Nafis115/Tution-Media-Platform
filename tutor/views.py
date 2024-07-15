@@ -82,21 +82,29 @@ def activate(request,uid64,token):
 # tutor login view   
             
 class TutorLoginApiView(APIView):
-    def post(self,request):
-        serializer=TutorLoginSerializer(data=self.request.data)
+    def post(self, request):
+        serializer = TutorLoginSerializer(data=self.request.data)
         
         if serializer.is_valid():
-            username=serializer.validated_data['username']
-            password=serializer.validated_data['password']
-            #check Tutor exist on our database
-            tutor=authenticate(username=username,password=password)
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            # Check if Tutor exists in our database
+            tutor = authenticate(username=username, password=password)
             
             if tutor:
-                token,_=Token.objects.get_or_create(user=tutor)
-                login(request,tutor) #login tutor
-                return Response({'Token':token.key,'tutor_id':tutor.id})
+                try:
+                    # Get the tutor_id from the Tutor model
+                    tutor_data = TutorModel.objects.get(user=tutor)
+                    tutor_id = tutor_data.id
+                    
+                    token, _ = Token.objects.get_or_create(user=tutor)
+                    login(request, tutor)  # Log in the tutor
+                    
+                    return Response({'Token': token.key, 'tutor_id': tutor_id})
+                except TutorModel.DoesNotExist:
+                    return Response({'error': "Tutor data not found"})
             else:
-                return Response({'error':"invalid credential"})
+                return Response({'error': "Invalid credentials"})
         return Response(serializer.errors)
     
     
