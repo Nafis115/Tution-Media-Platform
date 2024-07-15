@@ -4,11 +4,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 # serializers makings
 #user serializer represent a student
-class StudentSerializer(serializers.ModelSerializer):
-    
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model=StudentModel
-        fields='__all__'
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email']
+
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = StudentModel
+        fields = ['id', 'mobile_no', 'user']
         
 
 #registration serializer
