@@ -23,23 +23,6 @@ class TutorModel(models.Model):
     def __str__(self):
         return f"{self.user.first_name}  {self.user.last_name}"
 
-class TutorEducation(models.Model):
-    tutor = models.ForeignKey(TutorModel, on_delete=models.CASCADE, related_name='education')
-    Exam_Name = models.CharField(max_length=50)
-    passing_year = models.IntegerField()
-    institution = models.CharField(max_length=100)
-    Group = models.CharField(max_length=50)
-    grade = models.CharField(max_length=10)
 
-    def __str__(self):
-        return f"{self.Group} - {self.tutor.user.username}"
 
-class TutorReview(models.Model):
-    tutor = models.ForeignKey(TutorModel, on_delete=models.CASCADE, related_name='reviews')
-    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
-    comment = models.TextField()
-
-    def __str__(self):
-        return f"Review by {self.reviewer.username} for {self.tutor.user.username}"
 

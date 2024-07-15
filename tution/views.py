@@ -1,6 +1,6 @@
 from rest_framework import generics,viewsets
-from .models import Tuition
-from .serializers import TuitionSerializer
+from .models import Tuition,Review
+from .serializers import TuitionSerializer,ReviewSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import TuitionFilter
 
@@ -20,3 +20,8 @@ class TuitionFilterApiView(generics.ListAPIView):
     serializer_class = TuitionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = TuitionFilter
+    
+class ReviewViewset(viewsets.ModelViewSet):
+    
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer

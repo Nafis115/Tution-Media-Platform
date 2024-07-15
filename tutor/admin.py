@@ -9,20 +9,12 @@ class TutorModelAdmin(admin.ModelAdmin):
     search_fields = ['user__username', 'phone_number', 'location']
  
 
-class TutorEducationAdmin(admin.ModelAdmin):
-    list_display = ['tutor', 'Exam_Name', 'passing_year', 'institution', 'Group', 'grade']
-    list_filter = ['Exam_Name', 'passing_year', 'Group']
-    search_fields = ['tutor__user__username', 'Exam_Name', 'institution']
+
     
 
-class TutorReviewAdmin(admin.ModelAdmin):
-    list_display = ['tutor', 'reviewer', 'rating', 'comment']
-    list_filter = ['rating']
-    search_fields = ['tutor__user__username', 'reviewer__username']
+
     
 
 admin.site.register(TutorModel, TutorModelAdmin)
-admin.site.register(TutorEducation, TutorEducationAdmin)
-admin.site.register(TutorReview, TutorReviewAdmin)
 
 

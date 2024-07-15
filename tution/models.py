@@ -1,6 +1,6 @@
 from django.db import models
 from tutor.constants import GENDER_CHOICES, MEDIUM_OF_INSTRUCTION_CHOICES, CLASS_CHOICES, SUBJECT_CHOICES, TIME_CHOICES
-
+from tutor.models import TutorModel
 class SubjectChoice(models.Model):
     name = models.CharField(max_length=50, choices=SUBJECT_CHOICES)
 
@@ -19,6 +19,25 @@ class Tuition(models.Model):
     tutoring_time = models.CharField(max_length=20, choices=TIME_CHOICES, help_text="Time for tutoring")
     number_of_students = models.PositiveIntegerField(default=1, help_text="Number of students")
     salary = models.DecimalField(max_digits=10, decimal_places=2, help_text="Salary offered per month")
-
+    location=models.CharField(max_length=100,null=True,blank=True)
+    
     def __str__(self):
         return self.title
+
+
+
+STAR_CHOICES = [
+    ('⭐', '⭐'),
+    ('⭐⭐', '⭐⭐'),
+    ('⭐⭐⭐', '⭐⭐⭐'),
+    ('⭐⭐⭐⭐', '⭐⭐⭐⭐'),
+    ('⭐⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'),
+]
+class Review(models.Model):
+    reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
+    comments = models.TextField()
+    created = models.DateTimeField(auto_now_add = True)
+    rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
+    
+    def __str__(self):
+        return f"tutor : {self.reviewer.user.first_name}"

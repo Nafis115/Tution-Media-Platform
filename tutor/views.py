@@ -15,7 +15,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import redirect
 
 #modules of project
-from .models import TutorModel,TutorEducation,TutorReview
+from .models import TutorModel
 from .serializers import *
 
 from django.contrib.auth.models import User
@@ -120,33 +120,6 @@ class TutorLogoutApiView(APIView):
         else:
             return Response({'message': 'You are not logged in.'}, status=status.HTTP_401_UNAUTHORIZED)
     
-
-
-
-
-#tutor detail update view
-
-
-
-
-#tutor educational view      
-class TutorEducationApiView(generics.CreateAPIView):
-    queryset=TutorEducation.objects.all()
-    serializer_class=TutorEducationSerializer
-    
-    def perform_create(self, serializer):
-        tutor=TutorModel.objects.get(user=self.request.user)
-        serializer.save(tutor=tutor)
-
-#tutor review
-class TutorReviewApiView(generics.CreateAPIView):
-    queryset=TutorReview.objects.all()
-    serializer_class=TutorReviewSerializer
-    
-    def perform_create(self, serializer):
-        serializer.save(reviewer=self.request.user)
-        
-
 
     
 

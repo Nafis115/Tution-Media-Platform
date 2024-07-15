@@ -82,16 +82,8 @@ class TutorLoginSerializer(serializers.Serializer):
     username=serializers.CharField(required=True)
     password=serializers.CharField(required=True)
 
-        
-class TutorEducationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=TutorEducation
-        fields=['Exam_Name', 'passing_year', 'institution', 'Group', 'grade']    
+           
 
-class TutorReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TutorReview
-        fields = ['tutor', 'reviewer', 'rating', 'comment']
 
 
 class ChangePasswordSerializer(serializers.Serializer):

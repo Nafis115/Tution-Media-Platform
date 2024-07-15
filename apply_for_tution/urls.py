@@ -1,8 +1,10 @@
-
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter() 
+router.register('', views.ApplicationCreateView) 
+
 urlpatterns = [
-    path('list', views.ApplicationListView.as_view(), name='application-list'),
-    path('create/', views.ApplicationCreateView.as_view(), name='application-create'),
+    path('', include(router.urls)),
 ]
