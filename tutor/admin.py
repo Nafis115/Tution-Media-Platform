@@ -24,7 +24,5 @@ class TutorReviewAdmin(admin.ModelAdmin):
 admin.site.register(TutorModel, TutorModelAdmin)
 admin.site.register(TutorEducation, TutorEducationAdmin)
 admin.site.register(TutorReview, TutorReviewAdmin)
-admin.site.register(ClassChoice)
-admin.site.register(SubjectChoice)
-admin.site.register(TimeChoice)
+
 

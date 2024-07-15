@@ -17,58 +17,71 @@ class TutorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TutorRegistrationSerializer(serializers.ModelSerializer):
-    confirm_password=serializers.CharField(required=True)
-
-    
+    confirm_password = serializers.CharField(required=True)
+    image = serializers.ImageField(required=True)
+    gender = serializers.CharField(max_length=1, required=True)
+    phone_number = serializers.CharField(max_length=15, required=True)
+    location = serializers.CharField(max_length=100, required=True)
+    tuition_district = serializers.CharField(max_length=100, required=True)
+    minimum_salary = serializers.DecimalField(max_digits=10, decimal_places=2, required=False, allow_null=True)
+    status = serializers.CharField(max_length=20, required=False, allow_blank=True)
+    days_per_week = serializers.IntegerField(default=5)
+    tutoring_experience = serializers.CharField(max_length=20, required=True)
+    extra_facilities = serializers.CharField(max_length=200, required=False, allow_blank=True)
+    medium_of_instruction = serializers.CharField(max_length=20, required=True)
+   
     class Meta:
-        model=User
-        fields=['username','first_name','last_name','email','password','confirm_password']
-        
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'confirm_password',
+                  'image', 'gender', 'phone_number', 'location', 'tuition_district', 'minimum_salary',
+                  'status', 'days_per_week', 'tutoring_experience', 'extra_facilities',
+                  'medium_of_instruction']
+
     def save(self):
-        username=self.validated_data['username']
-        first_name=self.validated_data['first_name']
-        last_name=self.validated_data['last_name']
-        email=self.validated_data['email']
-        password=self.validated_data['password']
-        confirm_password=self.validated_data['confirm_password']
+        username = self.validated_data['username']
+        first_name = self.validated_data['first_name']
+        last_name = self.validated_data['last_name']
+        email = self.validated_data['email']
+        password = self.validated_data['password']
+        confirm_password = self.validated_data['confirm_password']
 
-        #checking password for both same
-        if password!=confirm_password:
-            raise serializers.ValidationError({'error' : "Password Doesn't Matched"}) #raising error
+        # Checking password match
+        if password != confirm_password:
+            raise serializers.ValidationError({'error': "Password Doesn't Match"})
 
-        #checking email that exist or not
-
+        # Checking if email exists
         if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'error' : "Email Already exists"}) #raised error
+            raise serializers.ValidationError({'error': "Email Already Exists"})
 
-        #creating account of Tutor
-        account=User(username=username,first_name=first_name,last_name=last_name,email=email)
-        #set password for the account
+        # Creating the User account
+        account = User(username=username, first_name=first_name, last_name=last_name, email=email)
         account.set_password(password)
-        #we set account active default false because we cross check the user and then active
-        account.is_active=False
+        account.is_active = False  # User needs verification
         account.save()
-        
-        tutor = TutorModel.objects.create(user=account)
-        return account
 
+        # Creating the associated TutorModel
+        tutor = TutorModel.objects.create(
+            user=account,
+            image=self.validated_data['image'],
+            gender=self.validated_data['gender'],
+            phone_number=self.validated_data['phone_number'],
+            location=self.validated_data['location'],
+            tuition_district=self.validated_data['tuition_district'],
+            minimum_salary=self.validated_data.get('minimum_salary'),
+            status=self.validated_data.get('status', 'Available'),
+            tutoring_experience=self.validated_data['tutoring_experience'],
+            extra_facilities=self.validated_data.get('extra_facilities', ''),
+            medium_of_instruction=self.validated_data['medium_of_instruction'],
+           
+        )
+
+
+
+        return account
 class TutorLoginSerializer(serializers.Serializer):
     username=serializers.CharField(required=True)
     password=serializers.CharField(required=True)
 
-class TutorUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name')
-
-    def update(self, instance, validated_data):
-        instance = super().update(instance, validated_data)
-        return instance
-
-class TutorDetailsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TutorModel
-        fields = '__all__' 
         
 class TutorEducationSerializer(serializers.ModelSerializer):
     class Meta:

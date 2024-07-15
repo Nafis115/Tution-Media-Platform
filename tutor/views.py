@@ -16,8 +16,7 @@ from django.shortcuts import redirect
 
 #modules of project
 from .models import TutorModel,TutorEducation,TutorReview
-from .serializers import (
-    TutorSerializer,TutorRegistrationSerializer,TutorLoginSerializer,TutorDetailsSerializer,TutorEducationSerializer,TutorReviewSerializer,ChangePasswordSerializer,TutorUpdateSerializer)
+from .serializers import *
 
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
@@ -108,14 +107,7 @@ class TutorLoginApiView(APIView):
         return Response(serializer.errors)
     
     
-class TutorProfileUpdateAPIView(RetrieveUpdateAPIView):
-    serializer_class = TutorUpdateSerializer
-    queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
 
-    def get_object(self):
-        return self.request.user
-        
 # tutor logout view
                
 class TutorLogoutApiView(APIView):
@@ -133,18 +125,7 @@ class TutorLogoutApiView(APIView):
 
 
 #tutor detail update view
-class TutorDetailsUpdateApiView(generics.UpdateAPIView):
-    
-    serializer_class = TutorDetailsSerializer
-    permission_classes = [IsAuthenticated]  
-    def get_object(self):
-        try:
-            return TutorModel.objects.get(user=self.request.user)
-        except TutorModel.DoesNotExist:
-            raise Http404("Tutor details not found for the user")
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 
@@ -165,19 +146,7 @@ class TutorReviewApiView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(reviewer=self.request.user)
         
-        
-#for filter view
 
-
-class TutorFilterApiView(generics.ListAPIView):  # Marked view class name
-    queryset = TutorModel.objects.all()  # Marked model name
-    serializer_class = TutorDetailsSerializer  # Marked serializer class name
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_class = TutorFilter  # Marked filter class name
-    search_fields = ['preferred_area_to_teach']
-    ordering_fields = ['preferred_area_to_teach', 'preferred_class', 'preferred_subjects']
-
-    
 
     
 
