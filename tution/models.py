@@ -38,7 +38,7 @@ class Review(models.Model):
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
-    rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
+    rating = models.IntegerField(choices = STAR_CHOICES)
     
     def __str__(self):
         return f"tutor : {self.reviewer.user.first_name} review"
