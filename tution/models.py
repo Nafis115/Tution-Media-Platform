@@ -27,18 +27,19 @@ class Tuition(models.Model):
 
 
 STAR_CHOICES = [
-    ( '⭐',        1 ),
-    ( '⭐⭐',      2 ),
-    ( '⭐⭐⭐' ,   3 ),
-    ( '⭐⭐⭐⭐' , 4  ),
-    ( '⭐⭐⭐⭐⭐',5  ),
+    (1, '⭐'),
+    (2, '⭐⭐'),
+    (3, '⭐⭐⭐'),
+    (4, '⭐⭐⭐⭐'),
+    (5, '⭐⭐⭐⭐⭐'),
 ]
 class Review(models.Model):
     
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
+    tuition=models.ForeignKey(Tuition,on_delete=models.CASCADE,null=True)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
     rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
     
     def __str__(self):
-        return f"tutor : {self.reviewer.user.first_name}"
+        return f"tutor : {self.reviewer.user.first_name} review"

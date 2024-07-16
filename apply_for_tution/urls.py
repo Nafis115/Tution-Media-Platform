@@ -7,4 +7,5 @@ router.register('', views.ApplicationCreateView)
 
 urlpatterns = [
     path('', include(router.urls)),
+   
 ]

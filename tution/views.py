@@ -20,7 +20,8 @@ class TuitionFilterApiView(generics.ListAPIView):
     serializer_class = TuitionSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = TuitionFilter
-    
+
+
 class ReviewViewset(viewsets.ModelViewSet):
     
     queryset = Review.objects.all()
