@@ -36,7 +36,6 @@ STAR_CHOICES = [
 class Review(models.Model):
     
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
-    tuition=models.ForeignKey(Tuition,on_delete=models.CASCADE,null=True)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
     rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
