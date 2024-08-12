@@ -10,11 +10,6 @@ class TutorModelAdmin(admin.ModelAdmin):
  
 
 
-    
-
-
-    
-
 admin.site.register(TutorModel, TutorModelAdmin)
 
 

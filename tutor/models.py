@@ -25,4 +25,3 @@ class TutorModel(models.Model):
 
 
 
-
