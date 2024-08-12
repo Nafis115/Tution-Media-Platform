@@ -38,11 +38,7 @@ class Review(models.Model):
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
-    rating = models.CharField(max_length=5,choices = STAR_CHOICES)
+    rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
     
-def __str__(self):
-    if self.reviewer.user:
-        return f"Tutor Review: {self.reviewer.user.first_name}"
-    else:
-        return f"Tutor Review: No associated user"
-
+    def __str__(self):
+        return f"tutor : {self.reviewer.user.first_name} review"
