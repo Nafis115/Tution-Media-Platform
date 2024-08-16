@@ -96,7 +96,7 @@ CORS_ALLOWED_ORIGINS = [
      "https://66bf6d169cb5a35072654001--superb-hotteok-0b9731.netlify.app",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+
 
 
 CORS_ALLOW_HEADERS = [
