@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 
 
-class StudentModel(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="studentmodel")
+class AdminModel(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="adminmodel")
     mobile_no=models.CharField(max_length=12)
         
         

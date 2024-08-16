@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #apps
-    'student',
     'tutor',
     'apply_for_tution',
     'service',
     'tution',
+    'admin_pannel',
     #rest framework
     'rest_framework',
     'rest_framework.authtoken',
@@ -85,11 +85,20 @@ TEMPLATES = [
         },
     },
 ]
-
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5501",  # Local development domain
-   
+    "http://127.0.0.1:8000",  # Local development domain
+     "http://127.0.0.1:5501",
 ]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'accept',
+    'origin',
+    'x-csrftoken',
+]
+
 
 WSGI_APPLICATION = 'tution_media_platform.wsgi.application'
 
@@ -153,26 +162,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
-#permission
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.IsAuthenticated',
-#         # Add other permissions as needed
-#     ],
-#     # Other DRF settings...
-# }
 
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#         # Add other authentication classes if needed
-#     ),
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#     ),
-# }
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 
 

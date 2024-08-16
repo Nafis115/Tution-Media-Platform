@@ -1,6 +1,8 @@
 from django.db import models
 from tutor.constants import GENDER_CHOICES, MEDIUM_OF_INSTRUCTION_CHOICES, CLASS_CHOICES, SUBJECT_CHOICES, TIME_CHOICES
 from tutor.models import TutorModel
+from admin_pannel.models import AdminModel
+
 class SubjectChoice(models.Model):
     name = models.CharField(max_length=50, choices=SUBJECT_CHOICES)
 
@@ -8,6 +10,7 @@ class SubjectChoice(models.Model):
         return self.name
 
 class Tuition(models.Model):
+    author=models.ForeignKey(AdminModel,on_delete=models.CASCADE)
     title = models.CharField(max_length=100, default="Tuition For", help_text="Title of the tuition")
     subjects = models.ManyToManyField(SubjectChoice, related_name='tuitions', help_text="Subjects taught in this tuition")
     tuition_class = models.CharField(max_length=50, choices=CLASS_CHOICES, help_text="Class for which tuition is offered")
@@ -27,18 +30,20 @@ class Tuition(models.Model):
 
 
 STAR_CHOICES = [
-    ( '⭐',        1 ),
-    ( '⭐⭐',      2 ),
-    ( '⭐⭐⭐' ,   3 ),
-    ( '⭐⭐⭐⭐' , 4  ),
-    ( '⭐⭐⭐⭐⭐',5  ),
+    ('⭐', '⭐'),
+    ('⭐⭐', '⭐⭐'),
+    ('⭐⭐⭐', '⭐⭐⭐'),
+    ('⭐⭐⭐⭐', '⭐⭐⭐⭐'),
+    ('⭐⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'),
 ]
 class Review(models.Model):
-    
+
     reviewer = models.ForeignKey(TutorModel, on_delete = models.CASCADE)
+    tuition=models.ForeignKey(Tuition,on_delete=models.CASCADE,default=1)
     comments = models.TextField()
     created = models.DateTimeField(auto_now_add = True)
-    rating = models.CharField(choices = STAR_CHOICES, max_length = 10)
+    rating = models.CharField(max_length=5,choices = STAR_CHOICES)
+    
     
     def __str__(self):
         return f"tutor : {self.reviewer.user.first_name} review"

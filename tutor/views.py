@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.generics import UpdateAPIView
 # registration and login modules
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
@@ -133,3 +134,15 @@ class ChangePasswordApiView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
    
+class ChangePasswordApiView(UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response({"detail": "Password updated successfully."}, status=status.HTTP_200_OK)

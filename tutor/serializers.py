@@ -85,18 +85,20 @@ class TutorLoginSerializer(serializers.Serializer):
            
 
 
-
 class ChangePasswordSerializer(serializers.Serializer):
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True, validators=[validate_password])
-
-    def validate_old_password(self, value):
+    old_password = serializers.CharField(required=True, write_only=True)
+    new_password = serializers.CharField(required=True, write_only=True)
+    new_password_confirm = serializers.CharField(required=True, write_only=True)
+    
+    def validate(self, data):
         user = self.context['request'].user
-        if not user.check_password(value):
-            raise serializers.ValidationError("Old password is not correct")
-        return value
+        if not user.check_password(data['old_password']):
+            raise serializers.ValidationError({"old_password": "Old password is incorrect."})
+        if data['new_password'] != data['new_password_confirm']:
+            raise serializers.ValidationError({"new_password_confirm": "New passwords do not match."})
+        return data
 
-    def validate(self, attrs):
-        if attrs['old_password'] == attrs['new_password']:
-            raise serializers.ValidationError("New password cannot be the same as the old password")
-        return attrs
+    def save(self):
+        user = self.context['request'].user
+        user.set_password(self.validated_data['new_password'])
+        user.save()

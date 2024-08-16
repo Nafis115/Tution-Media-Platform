@@ -1,9 +1,9 @@
-from .models import StudentModel
+from .models import AdminModel
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 # serializers makings
-#user serializer represent a student
+#user serializer represent a Admin
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,17 +12,17 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 
-class StudentSerializer(serializers.ModelSerializer):
+class AdminSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
-        model = StudentModel
+        model = AdminModel
         fields = ['id', 'mobile_no', 'user']
         
 
 #registration serializer
 
-class StudentRegistrationSerializer(serializers.ModelSerializer):
+class AdminRegistrationSerializer(serializers.ModelSerializer):
     confirm_password=serializers.CharField(required=True)
     mobile_no=serializers.CharField(max_length=12)
     
@@ -49,7 +49,7 @@ class StudentRegistrationSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=email).exists():
             raise serializers.ValidationError({'error' : "Email Already exists"}) #raised error
 
-        #creating account of student
+        #creating account of Admin
         account=User(username=username,first_name=first_name,last_name=last_name,email=email)
         #set password for the account
         account.set_password(password)
@@ -57,35 +57,13 @@ class StudentRegistrationSerializer(serializers.ModelSerializer):
         account.is_active=False
         account.save()
         
-        student = StudentModel.objects.create(user=account, mobile_no=mobile_no)
+        admin = AdminModel.objects.create(user=account, mobile_no=mobile_no)
         return account
 
-class StudentLoginSerializer(serializers.Serializer):
+class AdminLoginSerializer(serializers.Serializer):
     username=serializers.CharField(required=True)
     password=serializers.CharField(required=True)
     
         
-class StudentUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name')
-
-    def update(self, instance, validated_data):
-        instance = super().update(instance, validated_data)
-        return instance
     
     
-class ChangePasswordSerializer(serializers.Serializer):
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True, validators=[validate_password])
-
-    def validate_old_password(self, value):
-        user = self.context['request'].user
-        if not user.check_password(value):
-            raise serializers.ValidationError("Old password is not correct")
-        return value
-
-    def validate(self, attrs):
-        if attrs['old_password'] == attrs['new_password']:
-            raise serializers.ValidationError("New password cannot be the same as the old password")
-        return attrs
