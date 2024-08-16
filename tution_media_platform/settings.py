@@ -72,7 +72,7 @@ ROOT_URLCONF = 'tution_media_platform.urls'
 
 DEBUG = False
 #onrender csrf permission
-CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com','https://*.127.0.0.1',"https://66bf6d169cb5a35072654001--superb-hotteok-0b9731.netlify.app",]
+CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com','https://*.127.0.0.1',]
 
 
 TEMPLATES = [
