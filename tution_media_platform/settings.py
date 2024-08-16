@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import dj_database_url
 import environ
 
 env = environ.Env()
@@ -117,15 +117,25 @@ WSGI_APPLICATION = 'tution_media_platform.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': env("DB_NAME"),
+#        'USER': env("DB_USER"),
+#        'PASSWORD':env("DB_PASS"),
+#        'HOST': env("DB_HOST"),
+#        'PORT':env("DB_PORT"),
+#    }
+# }
+
+
+# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': env("DB_NAME"),
-       'USER': env("DB_USER"),
-       'PASSWORD':env("DB_PASS"),
-       'HOST': env("DB_HOST"),
-       'PORT':env("DB_PORT"),
-   }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://tuition_media_platform_user:PJpjOEMVkXUEt6uDkFA8HVA4anRydLnN@dpg-cqvimkggph6c738sip80-a.oregon-postgres.render.com/tuition_media_platform',
+        conn_max_age=600
+    )
 }
 
 
