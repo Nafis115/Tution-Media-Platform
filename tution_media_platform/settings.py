@@ -72,7 +72,7 @@ ROOT_URLCONF = 'tution_media_platform.urls'
 
 
 #onrender csrf permission
-CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com','https://*.127.0.0.1',"https://superb-hotteok-0b9731.netlify.app/",]
+CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com','https://*.127.0.0.1',"https://superb-hotteok-0b9731.netlify.app",]
 
 TEMPLATES = [
     {
@@ -93,7 +93,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",  # Local development domain
      "http://127.0.0.1:5501",
-     "https://superb-hotteok-0b9731.netlify.app/",
+     "https://superb-hotteok-0b9731.netlify.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
