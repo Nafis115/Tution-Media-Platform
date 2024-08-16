@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()  # Reads the .env file
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -106,11 +110,22 @@ WSGI_APPLICATION = 'tution_media_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': env("DB_NAME"),
+       'USER': env("DB_USER"),
+       'PASSWORD':env("DB_PASS"),
+       'HOST': env("DB_HOST"),
+       'PORT':env("DB_PORT"),
+   }
 }
 
 
@@ -167,8 +182,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
 }
-
 
 
 
@@ -176,10 +193,6 @@ REST_FRAMEWORK = {
 #environments 
 
 
-import environ
-
-env = environ.Env()
-environ.Env.read_env()  # Reads the .env file
 
 SECRET_KEY = env("SECRET_KEY")
 

@@ -13,5 +13,5 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['tuition', 'tutor']
+    filterset_fields = ['tuition','tutor']
 
