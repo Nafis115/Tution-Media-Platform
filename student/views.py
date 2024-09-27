@@ -67,9 +67,9 @@ def activate(request,uid64,token):
     if student is not None and default_token_generator.check_token(student,token):
         student.is_active=True # account active
         student.save()
-        return redirect('student_login')
+        return redirect('https://tuitionmedia.netlify.app/login.html')
     else:
-        return redirect('student_register')
+        return redirect('https://tuitionmedia.netlify.app/register')
     
             
 # student login view   

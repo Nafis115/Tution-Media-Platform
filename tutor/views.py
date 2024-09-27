@@ -33,7 +33,7 @@ class TutorRegistrationApiView(APIView):
             token = default_token_generator.make_token(tutor)
             uid = urlsafe_base64_encode(force_bytes(tutor.pk))
             
-            confirm_link = f"http://127.0.0.1:8000/api/tutor/active/{uid}/{token}"
+            confirm_link = f"https://tuition-media-platform-backend.onrender.com/active/{uid}/{token}"
             email_subject = "Confirm Registration"
             email_body = render_to_string('register_email.html', {'confirm_link': confirm_link})
             email = EmailMultiAlternatives(email_subject, '', to=[tutor.email])
@@ -56,9 +56,9 @@ def activate(request,uid64,token):
     if tutor is not None and default_token_generator.check_token(tutor,token):
         tutor.is_active=True 
         tutor.save()
-        return redirect('tutor_login')
+        return redirect('https://tuitionmedia.netlify.app/login.html')
     else:
-        return redirect('tutor_register')
+        return redirect('https://tuitionmedia.netlify.app/register')
 
 class TutorLoginApiView(APIView):
     def post(self, request):

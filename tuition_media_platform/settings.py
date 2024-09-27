@@ -73,7 +73,7 @@ ROOT_URLCONF = 'tuition_media_platform.urls'
 
 
 #onrender csrf permission
-CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com','https://*.127.0.0.1',"https://ephemeral-travesseiro-09f998.netlify.app",]
+CSRF_TRUSTED_ORIGINS = ['https://tuition-media-platform-backend.onrender.com',"https://tuitionmedia.netlify.app",]
 
 TEMPLATES = [
     {
@@ -94,7 +94,7 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",  # Local development domain
      "http://127.0.0.1:5501",
-     "https://ephemeral-travesseiro-09f998.netlify.app",
+     "https://tuitionmedia.netlify.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -122,26 +122,26 @@ WSGI_APPLICATION = 'tuition_media_platform.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': env("DB_NAME"),
-       'USER': env("DB_USER"),
-       'PASSWORD':env("DB_PASS"),
-       'HOST': env("DB_HOST"),
-       'PORT':env("DB_PORT"),
-   }
-}
-
-
-# # Replace the SQLite DATABASES configuration with PostgreSQL:
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgresql://tuition_media_platform_user:PJpjOEMVkXUEt6uDkFA8HVA4anRydLnN@dpg-cqvimkggph6c738sip80-a.oregon-postgres.render.com/tuition_media_platform',
-#         conn_max_age=600
-#     )
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': env("DB_NAME"),
+#        'USER': env("DB_USER"),
+#        'PASSWORD':env("DB_PASS"),
+#        'HOST': env("DB_HOST"),
+#        'PORT':env("DB_PORT"),
+#    }
 # }
+
+
+# Replace the SQLite DATABASES configuration with PostgreSQL:
+DATABASES = {
+    'default': dj_database_url.config(
+    
+        default='postgresql://tuition_media_platform_ypwy_user:qwMTcKAIiu4KVKSuFvVucbfXP2KbMYVe@dpg-crrd3uij1k6c73eduh1g-a.oregon-postgres.render.com/tuition_media_platform_ypwy',
+        conn_max_age=600
+    )
+}
 
 
 # Password validation
