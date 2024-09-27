@@ -1,6 +1,6 @@
 GENDER_CHOICES = [
-    ('M', 'Male'),
-    ('F', 'Female'),
+    ('Male', 'Male'),
+    ('Female', 'Female'),
 ]
 
 TUTORING_STATUS_CHOICES = [
@@ -47,6 +47,17 @@ TIME_CHOICES = [
     ('Afternoon', 'Afternoon'),
     ('Evening', 'Evening')
 ]
+
+DAYS_OF_WEEK = [
+    ('Monday', 'Monday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
+    ('Sunday', 'Sunday')
+]
+
 
 STAR_CHOICES = [
     ('⭐', '1_Star'),

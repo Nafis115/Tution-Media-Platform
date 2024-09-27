@@ -4,7 +4,8 @@ from .views import *
 
 router=DefaultRouter()
 
-router.register('list',TutorApiView) 
+router.register('list',TutorApiView)
+router.register('tutor_reviews', TutorReviewViewset) 
 
 urlpatterns = [
     path('',include(router.urls)),
