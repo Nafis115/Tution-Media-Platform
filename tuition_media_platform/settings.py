@@ -29,12 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +54,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     "corsheaders",
+    #cloudinary
+     'cloudinary_storage',
+    'cloudinary',
     
 ]
 
@@ -63,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -109,7 +114,7 @@ CORS_ALLOW_HEADERS = [
 ]
 
 
-WSGI_APPLICATION = 'tuition_media_platform.wsgi.application'
+WSGI_APPLICATION = 'tuition_media_platform.wsgi.app'
 
 
 # Database
@@ -122,28 +127,39 @@ WSGI_APPLICATION = 'tuition_media_platform.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'NAME': env("DB_NAME"),
-#        'USER': env("DB_USER"),
-#        'PASSWORD':env("DB_PASS"),
-#        'HOST': env("DB_HOST"),
-#        'PORT':env("DB_PORT"),
-#    }
-# }
-
-
-# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
-    'default': dj_database_url.config(
-    
-        default='postgresql://tuition_media_platform_ypwy_user:qwMTcKAIiu4KVKSuFvVucbfXP2KbMYVe@dpg-crrd3uij1k6c73eduh1g-a.oregon-postgres.render.com/tuition_media_platform_ypwy',
-        conn_max_age=600
-    )
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': env("DB_NAME"),
+       'USER': env("DB_USER"),
+       'PASSWORD':env("DB_PASS"),
+       'HOST': env("DB_HOST"),
+       'PORT':env("DB_PORT"),
+   }
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres.soltvdfgpqtbsqqavsyt',
+#         'PASSWORD': 'SKf6Ky7k*Brf8Mh',
+#         'HOST': 'aws-0-ap-southeast-1.pooler.supabase.com',
+#         'PORT': '6543'
+#     }
+# }
+
+# Replace the SQLite DATABASES configuration with PostgreSQL:
+# DATABASES = {
+#     'default': dj_database_url.config(
+    
+#         default='postgresql://tuition_media_platform_ypwy_user:qwMTcKAIiu4KVKSuFvVucbfXP2KbMYVe@dpg-crrd3uij1k6c73eduh1g-a.oregon-postgres.render.com/tuition_media_platform_ypwy',
+#         conn_max_age=600
+#     )
+# }
+
+# SKf6Ky7k*Brf8Mh
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -187,8 +203,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # media settings
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_URL = 'static/'
+STATIC_ROOT=BASE_DIR / 'staticfiles'
+MEDIA_URL = f'https://res.cloudinary.com/{env("CLOUD_NAME")}/'
 
 
 
@@ -221,3 +238,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = env("EMAIL")
 EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name=env("CLOUD_NAME"),
+    api_key=env("API_KEY"),
+    api_secret=env("API_SECRET_KEY"),
+)

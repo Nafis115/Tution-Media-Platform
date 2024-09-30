@@ -33,7 +33,7 @@ class TutorRegistrationApiView(APIView):
             token = default_token_generator.make_token(tutor)
             uid = urlsafe_base64_encode(force_bytes(tutor.pk))
             
-            confirm_link = f" https://tution-media-platform-backend.onrender.com/active/{uid}/{token}"
+            confirm_link = f" https://tution-media-platform-backend.onrender.com/api/tutor/active/{uid}/{token}"
             email_subject = "Confirm Registration"
             email_body = render_to_string('register_email.html', {'confirm_link': confirm_link})
             email = EmailMultiAlternatives(email_subject, '', to=[tutor.email])
