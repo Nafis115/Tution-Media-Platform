@@ -151,76 +151,78 @@ Represents a review or rating given by a student to a tutor.
 
 ---
 ## API Endpoints
+
 ### Authentication
 
 - **Student Login**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/student/login/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/student/login/](https://tution-media-platform-backend.vercel.app/api/student/login/)
   
 - **Tutor Login**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/tutor/login/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/tutor/login/](https://tution-media-platform-backend.vercel.app/api/tutor/login/)
   
 - **Admin Login**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/admin_panel/login/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/admin_panel/login/](https://tution-media-platform-backend.vercel.app/api/admin_panel/login/)
   
 - **Register Student**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/student/register/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/student/register/](https://tution-media-platform-backend.vercel.app/api/student/register/)
   
 - **Register Tutor**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/tutor/register/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/tutor/register/](https://tution-media-platform-backend.vercel.app/api/tutor/register/)
 
 ---
 
 ### Student Endpoints
 
 - **Get Profile**  
-  `GET` `https://tution-media-platform-backend.vercel.app/api/student/list/user_id`
+  `GET` [https://tution-media-platform-backend.vercel.app/api/student/list/user_id](https://tution-media-platform-backend.vercel.app/api/student/list/user_id)
   
 - **Create Tuition Post**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/tuition/list/`
+  `POST` [https://tution-media-platform-backend.vercel.app/api/tuition/list/](https://tution-media-platform-backend.vercel.app/api/tuition/list/)
   
 - **List Tuition Posts**  
-  `GET` `https://tution-media-platform-backend.vercel.app/api/tuition/list/`
+  `GET` [https://tution-media-platform-backend.vercel.app/api/tuition/list/](https://tution-media-platform-backend.vercel.app/api/tuition/list/)
   
 - **Change Password**  
-  `PUT` `https://tution-media-platform-backend.vercel.app/api/student/change-password/`
+  `PUT` [https://tution-media-platform-backend.vercel.app/api/student/change-password/](https://tution-media-platform-backend.vercel.app/api/student/change-password/)
 
 ---
 
-## Tutor Endpoints
+### Tutor Endpoints
 
 - **Get Profile**  
-  `GET` `https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id`
+  `GET` [https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id](https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id)
   
 - **List of Tutors**  
-  `GET` `https://tution-media-platform-backend.vercel.app/api/tutor/list/`
+  `GET` [https://tution-media-platform-backend.vercel.app/api/tutor/list/](https://tution-media-platform-backend.vercel.app/api/tutor/list/)
   
 - **Update Profile**  
-  `PUT` `https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id`
+  `PUT` [https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id](https://tution-media-platform-backend.vercel.app/api/tutor/list/user_id)
   
 - **Change Password**  
-  `PUT` `https://tution-media-platform-backend.vercel.app/api/tutor/change-password/`
+  `PUT` [https://tution-media-platform-backend.vercel.app/api/tutor/change-password/](https://tution-media-platform-backend.vercel.app/api/tutor/change-password/)
 
 ---
 
 ### Tuition API Endpoints
 
 - **Create Tuition Post**  
-  `POST` `https://tution-media-platform-backend.vercel.app/api/tuition/list/`  
+  `POST` [https://tution-media-platform-backend.vercel.app/api/tuition/list/](https://tution-media-platform-backend.vercel.app/api/tuition/list/)  
   *Description*: Create a new tuition post.
 
 - **List Tuition Posts**  
-  `GET` `https://tution-media-platform-backend.vercel.app/api/tuition/list/`  
+  `GET` [https://tution-media-platform-backend.vercel.app/api/tuition/list/](https://tution-media-platform-backend.vercel.app/api/tuition/list/)  
   *Description*: Retrieve a list of all tuition posts.
 
 - **Edit Tuition Post**  
-  `PUT` `https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId/`  
+  `PUT` [https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId/](https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId/)  
   *Description*: Update an existing tuition post.
 
 - **Delete Tuition Post**  
-  `DELETE` `https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId`  
+  `DELETE` [https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId](https://tution-media-platform-backend.vercel.app/api/tuition/list/tuitionId)  
   *Description*: Delete a specific tuition post.
 
 ---
+
 
 ### Notes
 
