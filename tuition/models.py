@@ -23,7 +23,7 @@ class Tuition(models.Model):
     preferred_tutor_gender = models.CharField(max_length=50, choices=GENDER_CHOICES, help_text="Preferred gender of tutor")
     tutoring_time = models.CharField(max_length=20, choices=TIME_CHOICES, help_text="Time for tutoring")
     number_of_students = models.PositiveIntegerField(default=1, help_text="Number of students")
-    salary = models.DecimalField(max_digits=10, decimal_places=2, help_text="Salary offered per month")
+    salary = models.PositiveIntegerField(blank=True,null=True, help_text="Salary offered per month")
     location=models.CharField(max_length=100,null=True,blank=True)
     requirement=models.TextField(blank=True,null=True)
     created=models.DateField(auto_now_add=True,null=True,blank=True)
